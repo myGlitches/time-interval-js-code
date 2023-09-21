@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex !important;
+    flex-direction: column;
+    width: 50%;
+    border: 1px solid black;
+    min-height: 90vh;
+}
+
+.nav {
+    display: flex;
+    padding: 5%;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+
+#play-area {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    position: relative;
+
+}
+
+#target {
+    display: none;
+    width: 10px;
+    position: absolute;
+    height: 10px;
+    background: red;
+}
