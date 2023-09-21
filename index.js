@@ -9,7 +9,6 @@ let targetClicked = false;
 function startGame() {
   const delay = parseFloat(document.getElementById('delay-input').value);
   if (!isNaN(delay) && delay >= 0) {
-      resetGame();
       target.style.display = "block"
         startTime = Date.now()
         targetClicked = true;
@@ -19,8 +18,18 @@ function startGame() {
         delayedTime  = delayTimer
         intervalId = setInterval(moveTarget, delayTimer);
         console.log(intervalId)
-        // Move target immediately upon start
-        moveTarget();
+      if (remainingTime === null) {
+            resetGame();
+      targetClicked = false;
+      const delayTimer = delay * 1000;
+      intervalId = setInterval(moveTarget, delayTimer);
+      moveTarget();  
+    } else {
+      targetClicked = true;
+      const delayTimer = remainingTime;
+      intervalId = setInterval(moveTarget, delayTimer);
+      moveTarget();  
+    }
     } else {
         resetGame()
         targetClicked = true
@@ -38,15 +47,23 @@ document.getElementById('target').addEventListener('click', () => {
         moveTarget();
         targetClicked = true
         recordReactionTime()
+        remainingTime = calculateRemainingTime();
     } else {
         moveTarget();
         targetClicked = true;
         // startTime = Date.now()
         recordReactionTime()
+        remainingTime = calculateRemainingTime();
     }
     
     
 });
+
+function calculateRemainingTime() {
+  const currentTime = Date.now();
+  return parseFloat(document.getElementById('delay-input').value) * 1000 - (currentTime - startTime);
+}
+
 
 function moveTarget() {
   if (targetClicked) {
